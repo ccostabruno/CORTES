@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTES - Crie seus vídeos em um só lugar</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#050505',
+                            card: 'rgba(20, 20, 20, 0.6)',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            red: '#FF2A2A'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #8B5CF6, #EC4899, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%);
+            filter: blur(60px);
+        }
+
+        .strike-x {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg) scale(0);
+            width: 120%;
+            height: 120%;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .strike-x.active {
+            transform: translate(-50%, -50%) rotate(-5deg) scale(1.1);
+            opacity: 0.9;
+        }
+
+        @keyframes scroll-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        @keyframes scroll-down {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+        
+        .animate-scroll-up {
+            animation: scroll-up 25s linear infinite;
+        }
+        
+        .animate-scroll-down {
+            animation: scroll-down 30s linear infinite;
+        }
+
+        /* Oculta scrollbar onde não é necessária */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-pink selection:text-white">
+
+    <div class="mesh-bg"></div>
+
+    <nav class="w-full fixed top-0 z-50 glass-panel border-b-0 py-4">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter">CORTES<span class="text-brand-pink">.</span></div>
+            <a href="#checkout" class="text-sm font-semibold bg-white/10 hover:bg-white/20 px-5 py-2 rounded-full transition-all duration-300">
+                Garantir Acesso
+            </a>
+        </div>
+    </nav>
+
+    <main class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 border border-brand-purple/30 animate-pulse-slow">
+                <span class="w-2 h-2 rounded-full bg-brand-pink"></span>
+                <span class="text-sm font-medium tracking-wide text-gray-300">O fim das mensalidades chegou</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 leading-[1.1]">
+                Crie seus vídeos em <br>
+                <span class="text-gradient">um só lugar.</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-light">
+                Esqueça dezenas de abas abertas. Legendas, cortes e edição com o poder da IA, tudo consolidado em uma única ferramenta.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#checkout" class="group relative px-8 py-4 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_rgba(236,72,153,0.3)]">
+                    <span class="relative z-10">Quero Meu App Agora</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-brand-purple to-brand-pink opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                </a>
+            </div>
+            
+            <!-- Mockup Imagem abstrata do App -->
+            <div class="mt-24 relative max-w-4xl mx-auto animate-float">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10 h-full w-full"></div>
+                <div class="glass-panel rounded-2xl p-2 border border-white/10 shadow-2xl relative overflow-hidden">
+                    <!-- Falso UI do App -->
+                    <div class="w-full h-12 bg-white/5 border-b border-white/5 flex items-center px-4 gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    
+                    <div class="aspect-video bg-[#050505] relative flex items-center justify-center overflow-hidden">
+                        
+                        <!-- Sombras/Degradês para suavizar a entrada e saída dos vídeos -->
+                        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050505] to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] to-transparent z-10 pointer-events-none"></div>
+                        
+                        <!-- Brilho de fundo -->
+                        <div class="absolute inset-0 bg-brand-purple/10 blur-[60px] rounded-full z-0 pointer-events-none"></div>
+
+                        <!-- Container das Colunas Rotacionado -->
+                        <div class="absolute inset-0 flex gap-3 sm:gap-5 justify-center items-center opacity-70 transform rotate-[-5deg] scale-125 z-0">
+                            
+                            <!-- Coluna 1 (Sobe) -->
+                            <div class="flex flex-col gap-3 sm:gap-5 animate-scroll-up">
+                                <!-- Cards Originais -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-brand-purple to-indigo-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-brand-pink to-brand-dark shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-blue-600 to-cyan-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <!-- Cards Duplicados para o loop perfeito -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-brand-purple to-indigo-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-brand-pink to-brand-dark shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-blue-600 to-cyan-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                            </div>
+
+                            <!-- Coluna 2 (Desce) -->
+                            <div class="flex flex-col gap-3 sm:gap-5 animate-scroll-down">
+                                <!-- Cards Originais -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-emerald-600 to-teal-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-orange-500 to-red-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-fuchsia-600 to-purple-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <!-- Cards Duplicados para o loop perfeito -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-emerald-600 to-teal-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-orange-500 to-red-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-fuchsia-600 to-purple-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                            </div>
+
+                            <!-- Coluna 3 (Sobe, mais lenta) -->
+                            <div class="flex flex-col gap-3 sm:gap-5 animate-scroll-up" style="animation-duration: 38s;">
+                                <!-- Cards Originais -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-sky-500 to-indigo-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-rose-500 to-pink-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-violet-600 to-fuchsia-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <!-- Cards Duplicados para o loop perfeito -->
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-sky-500 to-indigo-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-rose-500 to-pink-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                                <div class="w-[90px] h-[160px] sm:w-[130px] sm:h-[230px] rounded-xl relative overflow-hidden flex-shrink-0 border border-white/10 bg-gradient-to-br from-violet-600 to-fuchsia-900 shadow-lg"><div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div><div class="absolute bottom-2 left-2 right-2 flex justify-between items-end"><div><div class="w-5 h-5 rounded-full bg-white/20 mb-2"></div><div class="w-12 h-1.5 rounded bg-white/30 mb-1"></div><div class="w-8 h-1.5 rounded bg-white/20"></div></div><div class="flex flex-col gap-1"><div class="w-4 h-4 rounded-full bg-white/20"></div><div class="w-4 h-4 rounded-full bg-white/20"></div></div></div></div>
+                            </div>
+                        </div>
+
+                        <!-- Falso Elemento de "Gravação/Corte em andamento" no Centro -->
+                        <div class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+                            <div class="w-20 h-20 border-[3px] border-white/10 rounded-full flex items-center justify-center bg-black/30 backdrop-blur-sm shadow-[0_0_40px_rgba(236,72,153,0.3)]">
+                                <div class="w-5 h-5 bg-brand-pink rounded-sm animate-pulse shadow-[0_0_15px_rgba(236,72,153,1)]"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Mockup -->
+                        <div class="absolute bottom-4 left-4 right-4 h-16 glass-panel rounded-lg flex items-center px-3 gap-2 z-30 shadow-2xl border-t border-white/10">
+                            <div class="h-8 w-1/4 bg-brand-purple/40 rounded border border-brand-purple/50"></div>
+                            <div class="h-8 w-1/2 bg-brand-pink/40 rounded border border-brand-pink/50"></div>
+                            <div class="h-8 w-1/4 bg-blue-500/40 rounded border border-blue-500/50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section id="problem" class="py-24 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Pare de gastar com <span class="text-brand-red">vários planos.</span></h2>
+                <p class="text-xl text-gray-400">Você não precisa pagar aluguel mensal para ter ferramentas básicas de criação.</p>
+            </div>
+
+            <!-- Grid de "Sites Famosos" Fakes -->
+            <div class="relative max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6" id="subscription-grid">
+                
+                <!-- Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl opacity-50 grayscale transition-all duration-500">
+                    <div class="w-10 h-10 rounded bg-blue-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-300">Site de Legenda IA</h3>
+                    <p class="text-3xl font-black mt-2 text-white/40">$29<span class="text-sm font-normal">/mês</span></p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl opacity-50 grayscale transition-all duration-500">
+                    <div class="w-10 h-10 rounded bg-purple-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-300">Editor Web Pro</h3>
+                    <p class="text-3xl font-black mt-2 text-white/40">$49<span class="text-sm font-normal">/mês</span></p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl opacity-50 grayscale transition-all duration-500">
+                    <div class="w-10 h-10 rounded bg-pink-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-300">Gerador de B-Roll</h3>
+                    <p class="text-3xl font-black mt-2 text-white/40">$19<span class="text-sm font-normal">/mês</span></p>
+                </div>
+
+                <!-- O GRANDE X VERMELHO -->
+                <svg class="strike-x drop-shadow-[0_0_30px_rgba(255,42,42,0.8)]" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="path-x" d="M 10,10 L 90,90 M 90,10 L 10,90" stroke="#FF2A2A" stroke-width="8" stroke-linecap="round" fill="none" style="stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 1s ease-out;"/>
+                </svg>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="checkout" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            
+            <div class="glass-panel rounded-3xl p-1 lg:p-2 bg-gradient-to-b from-brand-purple/40 to-transparent">
+                <div class="bg-[#0a0a0a] rounded-[22px] p-8 md:p-12 border border-white/5 shadow-2xl relative overflow-hidden">
+                    
+                    <!-- Glow de fundo dentro do card -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-pink/20 rounded-full blur-[80px] -z-10"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-purple/20 rounded-full blur-[80px] -z-10"></div>
+
+                    <div class="flex flex-col md:flex-row gap-12 items-center">
+                        
+                        <div class="flex-1">
+                            <h2 class="text-4xl md:text-5xl font-black mb-2">Pagou, é <span class="text-brand-purple">seu.</span></h2>
+                            <p class="text-xl text-gray-400 mb-8">Acesso vitalício. Seu app para você criar cortes quando quiser e de onde quiser.</p>
+                            
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3 text-lg">
+                                    <svg class="w-6 h-6 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Acesso para sempre (sem mensalidade)
+                                </li>
+                                <li class="flex items-center gap-3 text-lg">
+                                    <svg class="w-6 h-6 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Todas as ferramentas de IA inclusas
+                                </li>
+                                <li class="flex items-center gap-3 text-lg">
+                                    <svg class="w-6 h-6 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Atualizações futuras gratuitas
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="w-full md:w-auto glass-panel p-8 rounded-2xl border border-white/10 text-center flex-shrink-0 relative">
+                            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-pink text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                                Oferta de Lançamento
+                            </div>
+                            <p class="text-gray-400 mb-2 font-medium">Pagamento Único</p>
+                            
+                            <!-- Preço Antigo -->
+                            <div class="flex items-center justify-center gap-2 mb-1 text-gray-500 font-medium">
+                                <span class="text-sm uppercase">De</span>
+                                <span class="text-xl line-through decoration-brand-red decoration-2">R$ 97,90</span>
+                            </div>
+                            
+                            <!-- Preço Novo -->
+                            <div class="flex items-end justify-center gap-1 mb-6 leading-none">
+                                <span class="text-xl font-bold text-brand-pink mb-1">por R$</span>
+                                <span class="text-6xl md:text-7xl font-black text-white tracking-tighter">36<span class="text-4xl text-gray-400 font-bold">,90</span></span>
+                            </div>
+
+                            <!-- COLE O SEU LINK DA HOTMART NO LUGAR DO TEXTO ABAIXO -->
+                            <a href="COLE_SEU_LINK_DO_HOTMART_AQUI" target="_blank" class="block w-full py-4 px-8 bg-white text-black font-black text-lg rounded-xl hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                                ADQUIRIR AGORA
+                            </a>
+                            <p class="text-sm text-gray-500 mt-4 flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                Pagamento 100% Seguro
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-white/5 mt-12 text-center text-gray-600 text-sm">
+        <div class="max-w-6xl mx-auto px-6">
+            <p>&copy; 2026 CORTES App. Todos os direitos reservados.</p>
+            <p class="mt-2 text-xs opacity-50">Não cobramos mensalidades. Pare de alugar seu software.</p>
+        </div>
+    </footer>
+
+    <!-- Script para animar o "X" quando aparecer na tela -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const problemSection = document.getElementById('problem');
+            const xSvg = document.querySelector('.strike-x');
+            const xPath = document.querySelector('.path-x');
+            let animated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        // Mostra o SVG com um leve efeito de escala/rotação (classe active)
+                        setTimeout(() => {
+                            xSvg.classList.add('active');
+                            // Anima o desenho da linha alterando o stroke-dashoffset
+                            setTimeout(() => {
+                                xPath.style.strokeDashoffset = '0';
+                            }, 100); 
+                        }, 200);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(problemSection);
+        });
+    </script>
+</body>
+</html>
