@@ -372,7 +372,7 @@
                             </div>
 
                             <a 
-                              href="https://pay.hotmart.com/S106854370N?checkoutMode=10" 
+                              href="https://pay.hotmart.com/S106854370N?checkoutMode=10&offDiscount=CORTES10" 
                               target="_blank"
                               onclick="gtag('event', 'click_comprar')"
                               class="block w-full py-4 px-8 bg-white text-black font-black text-lg rounded-xl hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]"
@@ -411,6 +411,9 @@
             setTimeout(() => {
                 document.getElementById('share-prompt').style.display = 'none';
                 document.getElementById('unlocked-coupon').style.display = 'block';
+                
+                // MÁGICA AQUI: Troca automaticamente o link do botão de compra para aplicar o CORTES20
+                document.getElementById('checkout-btn').href = "https://pay.hotmart.com/S106854370N?checkoutMode=10&offDiscount=CORTES20";
             }, 2000);
         }
 
@@ -425,8 +428,10 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !animated) {
                         animated = true;
+                        // Mostra o SVG com um leve efeito de escala/rotação (classe active)
                         setTimeout(() => {
                             xSvg.classList.add('active');
+                            // Anima o desenho da linha alterando o stroke-dashoffset
                             setTimeout(() => {
                                 xPath.style.strokeDashoffset = '0';
                             }, 100); 
